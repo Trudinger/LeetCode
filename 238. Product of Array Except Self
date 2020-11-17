@@ -1,0 +1,28 @@
+LeetCode No.238 Product of Array Except Self
+
+This problem will be fairly easy if division is allowed. However, the problem can still be solved without much difficulty if division is not allowed.
+The idea is to analyze each product with the missing element and find the special pattern. In fact, we only need 2n nums to compute all products and we simply store these numbers 
+in two arrays Left and Right. Be careful about the boundary condition.
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> res;
+        int i = 1;
+        int N = nums.size();
+        int Right[N];
+        int Left[N];
+        Left[0] = 1;
+        Right[N-1] = 1;
+        for(i = 1; i < N; ++i)
+        {
+            Left[i] = Left[i-1]*nums[i-1];
+            Right[N-1-i] = Right[N-i]*nums[N-i];
+        }
+        for(i = 0; i < N; ++i)
+        {
+            res.push_back(Left[i]*Right[i]);
+        }
+        return res;
+    }
+};
