@@ -1,0 +1,21 @@
+LeetCode No.1 Two Sum
+
+This solution is based on hash table and passes every element at most one time.
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res{};
+        unordered_map<int, int> hash_map;
+        for(int i= 0; i < nums.size(); ++i){
+            auto itr = hash_map.find(target- nums[i]);
+            if( itr != hash_map.end()){
+                res.push_back(itr->second);
+                res.push_back(i);
+                return res;
+            }
+            hash_map.insert({nums[i], i});
+        }
+        return res;
+    }
+};
