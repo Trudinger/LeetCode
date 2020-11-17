@@ -1,3 +1,7 @@
+LeetCode No. 200 Number of Islands
+
+The method below is the standard depth-first search method. It also records the size of each island.
+
 class Solution {
 public:
     static int findIsland(vector<vector<char>>& matrix, int row, int col)
