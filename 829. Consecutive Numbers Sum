@@ -1,0 +1,20 @@
+LeetCode No.829 Consecutive Numbers Sum
+
+This is a simple application of Gauss formula for arithmetic series.
+
+Consider the equation (a + a + (k-1))*k = 2N which is equivalent to (2a + (k-1))*k = 2N. Note that a > 0 and thereby 2a + k - 1 > k.
+We only need to check all divisors of 2N which are smaller than sqrt{2N} and solve the integer a.
+
+class Solution {
+public:
+    int consecutiveNumbersSum(int N) {
+        int sol = 0;
+        for(int i = 1; i*i <= 2*N; ++i)
+        {
+            if((2*N)%i==0){
+                if((2*N/i - i + 1)%2 == 0){sol++;}
+            }
+        }
+        return sol;
+    }
+};
