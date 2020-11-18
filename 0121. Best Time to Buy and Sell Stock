@@ -1,0 +1,21 @@
+LeetCode No. 121 Best Time to Buy and Sell Stock
+
+This problem is related to a classical problem called peak (or valley) finding. For this particular problem, we need to buy stock first then sell it. 
+Hence, we need to find a valley first to buy and then check the later profit for later transaction. Note that if a later price is lower than the found valley, we need to update it.
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int valley = INT_MAX;
+        int maxProfit = 0;
+        for(int i = 0; i < prices.size(); ++i){
+            if(prices[i] < valley){
+                valley = prices[i];
+            }
+            else if(prices[i] - valley > maxProfit){
+                maxProfit = prices[i] - valley;
+            }
+        }
+        return maxProfit;
+    }
+};
