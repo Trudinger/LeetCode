@@ -1,0 +1,32 @@
+LeetCode No. 56 Merge Intervals
+
+The following solution is based on a sorting method. We first sort all intervals with respect to the left endpoints and then merge sorted intervals iteratively.
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int N = intervals.size();
+        sort(intervals.begin(),intervals.end());
+        int i = 0;
+        vector<vector<int>> sol;
+        if(N==0){return sol;}
+        vector<int> temp;
+        temp.push_back(intervals[0][0]);
+        temp.push_back(intervals[0][1]);
+        for(i = 1; i < N; ++i)
+        {
+            if(intervals[i][0] <= temp[1])
+            {
+                if(intervals[i][1] >= temp[1]){temp[1] = intervals[i][1];}
+            }
+            else
+            {
+                sol.push_back(temp);
+                temp[0] = intervals[i][0];
+                temp[1] = intervals[i][1];
+            }
+        }
+        sol.push_back(temp);
+        return sol;
+    }
+};
