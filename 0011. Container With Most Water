@@ -1,0 +1,19 @@
+LeetCode No. 11 Container With Most Water
+
+This is a classical problem for two pointers. We simply initiate two pointers at both ends and shrink the interval by moving the pointer pointing to the lower height.
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int Max = 0;
+        int i = 0, j = height.size()-1;
+        if(height.size()==1){return min(height[i],height[j]);}
+        while(i < j)
+        {
+            if(min(height[i],height[j])*(j-i)>Max){Max = min(height[i],height[j])*(j-i);}
+            if(height[i] >= height[j]){j--;}
+            else{i++;}
+        }
+        return Max;
+    }
+};
