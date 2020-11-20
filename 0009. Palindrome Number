@@ -1,0 +1,19 @@
+LeetCode No. 9 Palindrome Number
+
+This problem can be solved directly. However, a simple observation is that we only need compare the first half and latter half of the integer, 
+which makes the algorithm more efficient.
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        vector<int> digits;
+        if(x == 0){return true;}
+        if(x < 0 || x %10 == 0){return false;}
+        int cur = 0;
+        while(x > cur){
+            cur = cur*10 + x%10;
+            x = x / 10;
+        }// extract and reverse the latter half of the integer
+        return x == cur || x == cur / 10;        
+    }
+};
