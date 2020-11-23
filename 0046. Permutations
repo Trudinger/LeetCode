@@ -1,0 +1,21 @@
+LeetCode No. 46 Permutations
+
+This is a classical combinatorial problem. The solution below is a backtracking method to realize Heap's algorithm.
+
+class Solution {
+    
+public: void backtrack(vector<int>& nums, int level, vector<vector<int>>& sol){
+    if(level==nums.size()-1){sol.push_back(nums);}
+    for(int i = level; i < nums.size(); ++i){
+        swap(nums[i],nums[level]); // we swap one pair at each step
+        backtrack(nums, level + 1, sol);
+        swap(nums[i],nums[level]); // backtracking step to restore the state
+    }
+}
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> sol;
+        backtrack(nums, 0, sol);
+        return sol;
+    }
+};
