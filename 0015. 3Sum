@@ -1,0 +1,38 @@
+LeetCode No. 15 3Sum
+
+This problem is a variation of Two sum and it can be solved similarly by two pointers. We first sort the numbers in the vector and choose an index to iterate all numbers.
+For each number nums[i], we apply two pointers method to solve a Two sum problem for all numbers on the right of nums[i]. If we find duplicate numbers, we simply skip them.
+This can be done easily since duplicate numbers are next to each other in a sorted vector.
+
+Remark: this is another method which doesn't involve sorting.
+
+class Solution {
+    vector<vector<int>> sol;
+    public: void twoSum(int i, vector<int>& nums, vector<vector<int>>& sol){
+        int low = i + 1, high = nums.size() - 1;
+        while(low < high){
+            int sum = nums[low] + nums[high] + nums[i];
+            if(sum > 0){
+                --high;
+            }
+            else if(sum < 0){
+                ++low;
+            }
+            else{
+                sol.push_back({nums[i],nums[low++],nums[high--]});
+                while(low < high && nums[low] == nums[low-1]){
+                ++low;
+                }
+            }
+        }
+    }
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for(int i = 0; i < nums.size() && nums[i] <= 0; ++i){
+            if(i == 0 || nums[i] != nums[i-1])
+            twoSum(i,nums,sol);
+        }
+        return sol;
+    }
+};
