@@ -1,0 +1,21 @@
+LeetCode No. 27 Remove Element
+
+The difficulty is that we have to remove element without making a copy of the vector. A naive idea is to find all the target values and remove them one by one, 
+which turns out to be a very inefficient approach. The solution below is an application of two pointers. The fast pointer is used to detect target value and the slow pointer is 
+used to update the vector. This problem is fundamentally equivalent to writing a "remove" function which is available from the STL.
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int slow = 0, fast = 0;
+        while(fast < nums.size()){
+            if(nums[fast] == val){fast++;}
+            else{
+                nums[slow] = nums[fast];
+                slow++;
+                fast++;
+            }
+        }
+        return slow;
+        }
+};
