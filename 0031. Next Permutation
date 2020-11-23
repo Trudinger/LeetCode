@@ -1,0 +1,29 @@
+LeetCode No. 31 Next Permutation
+
+Note that a permutation is the last permutation is equivalent to the fact that the array is sorted in descending order. With this observation, we simply find the largest index i
+such that nums[i] < nums[i+1]. Then we swap nums[i] with the fisrt nums[k] < nums[i] where i < k < nums.size() and swap nums[i] and nums[k]. 
+In the end, we sort nums[i+1] to nums[nums.size()-1]. Note that the subarray from nums[i+1] to nums[nums.size()-1] is decreasing and sorting simply means reverse this subarray.
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i = nums.size() - 2;
+        while((i>=0)&&(nums[i]>=nums[i+1])){
+            i--;
+        }
+        if(i >= 0){
+            int j = nums.size() - 1;
+            while((j >= 0)&&(nums[j]<=nums[i])){
+                j--;
+            }
+            swap(nums[i],nums[j]);
+        }
+        //sort(nums.begin()+i+1,nums.end());
+        int k = i + 1, l = nums.size() - 1;
+        while(k < l){
+            swap(nums[k],nums[l]);
+            k++;
+            l--;
+        }
+    }
+};
