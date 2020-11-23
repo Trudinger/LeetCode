@@ -1,6 +1,7 @@
 LeetCode No. 21 Merge Two Sorted Lists
 
-The solution below is based on recurssion. We simply compare the value of the initial nodes and simplify the problem recursively.
+This problem is a typical problem of linked lists. There are in general two methods for problems related to linked lists: recursion and iteration.
+The solution below is based on recursion. We simply compare the value of the initial nodes and simplify the problem recursively.
 
 /**
  * Definition for singly-linked list.
