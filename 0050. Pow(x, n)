@@ -1,0 +1,27 @@
+LeetCode No. 50 Pow(x, n)
+
+This problem is to realize the exponentiation by squaring algorithm. It can be realized by recursion or iteration.
+The solution below is an iterative implementation. The crucial idea is x^{2n} = (x^2)^n and x^{2n+1} = x*(x^2)^n. 
+The recursive implementation is slightly different by using x^{2n} = (x^n)^2 and x^{2n+1} = x*(x^n)^2.
+
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long N = n;
+        if(x == 0){return 0;}
+        if(N < 0){
+            x = 1 / x;
+            N = -N;
+        }
+        double sol = 1;
+        double curr = x;
+        for(long long i = N; i ; i = i / 2){
+            if((i % 2) == 1){
+                sol = sol * curr;
+            }
+            curr = curr * curr;
+        }
+        return sol;
+    }
+};
