@@ -1,0 +1,39 @@
+LeetCode No. 20 Valid Parentheses
+
+This is a classical application of stack. The idea is that the insertion of '{', '[', and '(' into the stack is always allowed while the deletion with respect to '}', ']', and ')' 
+is crucial. If there is any mismatch, just return false.  In the end, return true only if the stack is empty. Note that this problem is a prototype of "first in, last out" policy.
+
+class Solution {
+    public: 
+    static bool isPair(char &c_1, char &c_2){
+        if(c_1 == '(' && c_2 == ')'){
+            return true;
+        }
+        else if(c_1 == '[' && c_2 == ']'){
+            return true;
+        }
+        else if(c_1 == '{' && c_2 == '}'){
+            return true;
+        }
+        return false;
+    } 
+    public:
+    bool isValid(string s) {
+        vector<char> st;
+        for(auto &c : s){
+            if(c == '(' || c == '[' || c == '{'){
+                st.push_back(c);
+            }
+            else{
+                if(st.empty()){return false;}
+                else if(isPair(st.back(),c)){
+                    st.pop_back();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return st.empty();
+    }
+};
