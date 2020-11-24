@@ -1,0 +1,18 @@
+LeetCode No. 62 Unique Paths
+
+This problem is  typical dynamic programming problem. The recursion relation is dp[i][j] = dp[i-1][j] + dp[i][j-1]. Be careful about the boundary condition.
+Note that the renewal only relies on the previous array. Therefore, we can reduce the space from a matrix to a vector. Another method is to realize that the recursion relation
+implies that d[i][j] has a simple combinatorial formula.
+
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<int> dp(n,1);
+        for(int i = 1; i < m; ++i){
+            for(int j = 1; j <= n-1; ++j){
+                dp[j] = dp[j] + dp[j-1];
+            }
+        }
+        return dp[n-1];
+    }
+};
