@@ -1,0 +1,20 @@
+LeetCode No. 152 Maximum Product Subarray
+
+This is the multiplication version of Maximum Subarray. Be careful about the sign issue and store both the maximum and minimum at each step.
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int maxSoFar = nums[0]; int minSoFar = nums[0]; int result = maxSoFar;
+        int temp_max, temp_min;
+        for(int i = 1; i < nums.size(); ++i)
+        {
+            temp_max = maxSoFar;
+            temp_min = minSoFar;
+            maxSoFar = max(max(temp_max*nums[i],temp_min*nums[i]),nums[i]);
+            minSoFar = min(min(temp_max*nums[i],temp_min*nums[i]),nums[i]);
+            result = max(result,maxSoFar); 
+        }
+        return result;
+    }
+};
