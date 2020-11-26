@@ -1,0 +1,16 @@
+LeetCode No. 136 Single Number
+
+This problem can be solved by hash table. However, the bit manipulation method presented below is more efficient in space complexity. 
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        if(nums.size()==1){return nums[0];}
+        int res = 0;
+        for(int num : nums)
+        {
+            res = res^num;
+        }
+        return res;
+    }
+};
