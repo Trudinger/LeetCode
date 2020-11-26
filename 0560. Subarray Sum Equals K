@@ -1,0 +1,21 @@
+LeetCode No. 560 Subarray Sum Equals K
+
+This problem is a nice application of hash table for searching. The interesting thing is that brute force solution will give TLE error and only the following one-pass method 
+can pass all test cases. Another point is to notice that subscripting a hash map will create an item if the key is not found. This behaviour is in contrast to that of a vector.
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int,int> T;
+        int count = 0, sum = 0;
+        for(int i = 0; i < nums.size(); ++i){
+            sum = sum + nums[i];
+            if(sum == k){count++;}
+            if(T.find(sum-k)!=T.end()){
+                count = count + T[sum-k];
+            }
+            T[sum]++;
+        }
+        return count;
+    }
+};
