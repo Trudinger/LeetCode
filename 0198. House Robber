@@ -1,0 +1,28 @@
+LeetCode No. 198 House Robber
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int N = nums.size();
+        if(N==0){return 0;}
+        int Money[N];
+        Money[0] = nums[0];
+        if(N==1){return Money[0];}
+        if(nums[0] < nums[1])
+        {
+            Money[1] = nums[1]; 
+        }
+        else
+        {
+            Money[1] = nums[0];
+        }
+        int i = 2;
+        for( i = 2; i < N; ++i)
+        {
+            if(Money[i-1] > (Money[i-2]+nums[i]))
+            {Money[i] = Money[i-1];}
+            else {Money[i] = Money[i-2]+nums[i];}
+        }
+        return Money[N-1];
+    }
+};
