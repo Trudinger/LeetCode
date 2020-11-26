@@ -1,0 +1,53 @@
+LeetCode No. 78 Subsets
+
+This is a typical combinatorial problem. It can be solved by cascading or backtracking. On LeetCode, the cascading method is faster for the test cases. We present both methods.
+
+// Cascading
+class Solution { 
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> temp;
+        res.push_back(temp);
+        int i = 0, j = 0, k = 0, length_temp = 0;
+        for(i = 0;i < nums.size();i++)
+        {
+            length_temp = res.size();
+            for(j = 0; j < length_temp; j++)
+            {
+                temp.clear();
+                for(k = 0; k < res[j].size();k++)
+                {
+                    temp.push_back(res[j][k]);
+                }
+                temp.push_back(nums[i]); // add new element to every generated subsets
+                res.push_back(temp);
+            }
+        }
+        return res;
+    }
+};
+
+// Backtracking
+class Solution {
+    vector<vector<int>> solution;
+    int n, k;
+    public:
+    void backtrack(int first, vector<int> curr, vector<int> nums){
+        if(curr.size()==k){solution.push_back(curr);}
+        for(int i = first; i < n; ++i){
+            curr.push_back(nums[i]);
+            backtrack(i+1,curr,nums);
+            curr.erase(curr.end()-1);
+        }
+    }
+    public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        n = nums.size();
+        for(k = 0; k <= n; ++k){ // each loop generates all subsets of order k
+            vector<int> c;
+            backtrack(0,c,nums);
+        }
+        return solution;
+    }
+};
