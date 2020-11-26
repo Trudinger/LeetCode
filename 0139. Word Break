@@ -1,0 +1,25 @@
+LeetCode No. 139 Word Break
+
+This problem can be viewed as a string version of Coin Change problem. 
+
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<int> dp(s.length()+1,0);
+        dp[0]=1;
+        for(int i = 1; i <= s.length(); ++i)
+        {
+            for(int j=0;j<wordDict.size();++j)
+            {
+                if(i >= wordDict[j].size()){   
+                    int sz = wordDict[j].size();
+                    if(dp[i-sz]==1 && wordDict[j] == s.substr(i-sz,sz)) // check if the final substring coincides with the current string from wordDict 
+                        dp[i]=1;
+                }
+                if(dp[i]==1)break;
+            }
+        }
+        if(dp[s.length()]==1){return true;}
+        else {return false;}
+    }
+};
