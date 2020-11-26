@@ -1,0 +1,21 @@
+LeetCode No. 77 Combinations
+
+This is a classical problem of backtracking. The solution below is a variation of Heap's algorithm of generating permutations.
+
+class Solution {
+    vector<vector<int>> sol;
+public: void backtrack(int cur, vector<int>& com, int n, int k){
+    if(com.size()==k){sol.push_back(com);}
+    for(int i = cur; i <= n; ++i){
+        com.push_back(i);
+        backtrack(i+1,com,n,k);
+        com.erase(com.end()-1);
+    }
+}
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> com;
+        backtrack(1,com,n,k);
+        return sol;
+    }
+};
