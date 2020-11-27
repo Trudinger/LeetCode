@@ -1,0 +1,51 @@
+LeetCode No. 206 Reverse Linked List
+
+This one of the most basic problems for linked list. We can reverse it by reversing the array and construct a new linked list. However, the point here is the manipulation 
+of pointers. Usually the problems for linked list can be solved both iteratively and recursively. Here we present both methods.
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution { // iteration
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = NULL; // pointer to record the previous pointer as the list is singly linked
+        ListNode* cur = head;
+        ListNode* next = NULL;
+        while(cur != NULL){
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+};
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution { // recursion
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL){return head;}
+        ListNode* pr = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL; // importnat step to avoid loop for linked list of order 2
+        return pr;
+    }
+};
