@@ -1,0 +1,46 @@
+LeetCode No. 213 House Robber II
+
+A simple variation of the problem House Robber. The houses are located on a loop. The only issue is to consider whether or not to rob the first house.
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int N = nums.size();
+        if(N==0){return 0;}
+        if(N==1){return nums[0];}
+        if(N==2){
+            if(nums[1]>nums[0]){return nums[1];}
+            else {return nums[0];}
+        }
+        if(N==3){
+            if((nums[2]>nums[0])&&(nums[2]>nums[1])){return nums[2];}
+            else {
+                if(nums[1]>nums[0]){return nums[1];}
+                else {return nums[0];}
+            }
+        }
+        int Money_0[N];
+        Money_0[0] = nums[0]; // rob the first house
+        if(nums[1]>nums[0]){Money_0[1] = nums[1];}
+            else {Money_0[1] = nums[0];}
+        int i = 2;
+        for(i = 2; i < N - 1; ++i)
+        {
+            if(Money_0[i-1] > (Money_0[i-2]+nums[i])){Money_0[i] = Money_0[i-1];}
+            else {Money_0[i] = Money_0[i-2]+nums[i];}
+        }
+        int Money_1[N];
+        Money_1[0] = 0;
+        Money_1[1] = nums[1]; // don't rob the first house
+        if(nums[2]>nums[1]){Money_1[2] = nums[2];}
+            else {Money_1[2] = nums[1];}
+        for(i = 3; i < N; ++i)
+        {
+            if(Money_1[i-1] > (Money_1[i-2]+nums[i])){Money_1[i] = Money_1[i-1];}
+            else {Money_1[i] = Money_1[i-2]+nums[i];}
+        }
+        if(Money_0[N-2]>Money_1[N-1]){return Money_0[N-2];}
+        else {return Money_1[N-1];}
+        
+    }
+};
