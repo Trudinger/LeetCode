@@ -1,0 +1,34 @@
+LeetCode No. 204 Count Primes
+
+This is a classical arithmetic problem. A basic idea is to check prime number one by one. However, this approach will be fairly inefficient. 
+The solution below uses the idea of sieve method: find all prime numbers smaller than sqrt{n} and remove all the their multiples smaller than n.
+
+class Solution {
+    public:
+    static bool isPrime(int num){
+        int i = 2;
+        while(i*i <= num)
+        {
+            if(num%i==0){return false;}
+            ++i;
+        }
+        return true;
+    }
+    public:
+    int countPrimes(int n) {
+        if(n==0 || n==1){return 0;}
+        vector<bool> check(n,1);
+        for(int i = 2; i*i < n; ++i){
+            if(isPrime(i)){
+                for(int j = i*i; j < n; j = j + i){ // the prime numbers are checked starting from the smallest and thereby the first non-prime number we need to remove is i*i
+                    check[j] = 0;
+                }
+            }
+        }
+        int count = 0;
+        for(int ind = 2; ind < n; ++ind){
+            if(check[ind]){++count;}
+        }
+        return count;
+    }
+};
