@@ -1,0 +1,40 @@
+LeetCode No. 221 Maximal Square
+
+This is a dynamic programming problem. We consider the maximal square with the right bottom corner at (i,j). 
+Then the subproblem we need to consider will be the maximal squares with the right bottom corners at (i-1,j), (i,j-1), and (i-1,j-1).
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int R = matrix.size();
+        if(R == 0){return 0;}
+        int C = matrix[0].size();
+        int sol[R][C];
+        int i = 0, j = 0;
+        int M = 0;
+        for(j = 0; j < C; ++j)
+        {
+            if(matrix[0][j]=='1'){sol[0][j] = 1;}
+            else{sol[0][j] = 0;}
+            if(sol[0][j] > M){M = sol[0][j];}
+        }
+        for(i = 0; i < R; ++i)
+        {
+            if(matrix[i][0]=='1'){sol[i][0] = 1;}
+            else{sol[i][0] = 0;}
+            if(sol[i][0] > M){M = sol[i][0];}
+        }
+        for(i = 1; i < R; ++i)
+        {
+            for(j = 1; j < C; ++j)
+            {
+                if(matrix[i][j]=='0'){sol[i][j] = 0;}
+                else{
+                    sol[i][j] = min(min(sol[i][j-1],sol[i-1][j]),sol[i-1][j-1]) + 1;
+                }
+                if(sol[i][j] > M){M = sol[i][j];}
+            }
+        }
+        return M*M;
+    }
+};
