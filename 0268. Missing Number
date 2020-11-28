@@ -1,0 +1,32 @@
+LeetCode No. 268 Missing Number
+
+Hash table is a possible approach. However, an application of Gauss formula is also very efficient.
+
+// hash table method
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        unordered_set<int> S_Number(nums.begin(),nums.end());
+        int i = 0;
+        for(i = 0; i <= nums.size(); i++)
+        {
+            if(S_Number.find(i)==S_Number.end()){
+                break;
+            }
+        }
+        return i;
+    }
+};
+
+// Gauss formula method
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int sum = 0;
+        for(int i = 0; i < nums.size();++i)
+        {
+            sum = sum + nums[i];
+        }
+        return (nums.size()+1)*nums.size()/2 - sum;
+    }
+};
