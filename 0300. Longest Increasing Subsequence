@@ -1,0 +1,34 @@
+LeetCode No. 300 Longest Increasing Subsequence
+
+This is a classical dynamic programming problem. Consider dp[n] as the record of the longest increasing subsequence with last number nums[n].
+Then we check the first n-1 numbers to update its value.
+
+Remark: binary search can reduce the time complexity even more.
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        if(nums.size() == 0){return 0;}
+        int length[nums.size()];
+        length[0] = 1;
+        int i = 1, j = 0;
+        for(i = 1; i < nums.size(); ++i)
+        {
+            length[i] = 1;
+            for(j = i - 1; j >= 0; --j)
+            {
+                if(nums[j] < nums[i]){
+                    if(length[j] + 1 >= length[i]){length[i] = length[j] + 1;}
+                }
+            }
+        }
+        int LIS = 1;
+        for(i = 0; i < nums.size(); ++i)
+        {
+            if(length[i] >= LIS){
+                LIS = length[i];
+            }
+        }
+        return LIS;
+    }
+};
