@@ -1,0 +1,34 @@
+LeetCode No. 256 Paint House
+
+This is a dynamic programming problem. The n-th can be painted by one of the three colors and the minimal cost with each color depends on the minimal costs 
+of the previous house with different colors since no two adjacent houses can have the same color. This recursion relation is now clear.
+
+Remark: space complexity of the following solution can be optimized since we only need to remember the costs of the last two houses.
+
+class Solution {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int answer;
+        int N = costs.size();
+        if(N==0){return 0;}
+        int Total[N][3];
+        for(int i = 0; i < 3;++i){Total[0][i] = costs[0][i];}
+        int j = 1, k = 0;
+        for(j = 1; j < N; ++j)
+        {
+                if(Total[j-1][1] < Total[j-1][2]){Total[j][0] = Total[j-1][1] + costs[j][0];}
+                else{Total[j][0] = Total[j-1][2] + costs[j][0];}
+                if(Total[j-1][0] < Total[j-1][2]){Total[j][1] = Total[j-1][0] + costs[j][1];}
+                else{Total[j][1] = Total[j-1][2] + costs[j][1];}
+                if(Total[j-1][0] < Total[j-1][1]){Total[j][2] = Total[j-1][0] + costs[j][2];}
+                else{Total[j][2] = Total[j-1][1] + costs[j][2];}
+        }
+        answer = Total[N-1][0];
+        for(int l = 1; l < 3; ++l)
+        {
+            if(answer > Total[N-1][l]){answer = Total[N-1][l];}
+        }
+        return answer;
+    }
+};
+
