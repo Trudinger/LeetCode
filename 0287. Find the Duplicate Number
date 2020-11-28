@@ -1,0 +1,18 @@
+LeetCode No. 287 Find the Duplicate Number
+
+There are at least three methods to solvong this problem: 1.sort 2.hash table 3. Floyd's Tortoise and Hare. The solution below is based on hash table.
+However, Floyd's Tortoise and Hare is more space efficient.
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        unordered_set<int> Dup;
+        int i = 0;
+        for(auto num : nums)
+        {
+            if(Dup.find(num)!=Dup.end()){return num;}
+            Dup.insert({num});
+        }
+        return -1;
+    }
+};
