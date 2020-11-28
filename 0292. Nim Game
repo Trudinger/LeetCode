@@ -1,0 +1,10 @@
+LeetCode No. 292 Nim Game
+
+This is a classical brainteaser. The solution only depends on whether n is a multiple of 4.
+
+class Solution {
+public:
+    bool canWinNim(int n) {
+        return (n%4 != 0);
+    }
+};
