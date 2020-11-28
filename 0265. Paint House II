@@ -1,0 +1,34 @@
+LeetCode No. 265 Paint House II
+
+The idea is the same as that of the problem Paint House.
+Remark: the time and space complexity can be reduced even more by understand the renewal process in more detail.
+
+// O(n*k^2) time complexity
+class Solution {
+public:
+    int minCostII(vector<vector<int>>& costs) {
+        int n = costs.size();
+        if(n == 0){return 0;}
+        int k = costs[0].size();
+        int i = 1, j = 0, m = 0;
+        int temp = 0;
+        for(i = 1; i < n; ++i)
+        {
+            for(j = 0; j < k; ++j)
+            {
+                temp = costs[i-1][(j+1)%k];
+                for(m = 1; m < k; ++m)
+                {
+                    if(temp > costs[i-1][(j+m)%k]){temp = costs[i-1][(j+m)%k];}
+                }
+                costs[i][j] = costs[i][j] + temp;
+            }
+        }
+        int answer = INT_MAX;
+        for(auto c : costs[n-1])
+        {
+            if(answer > c){answer = c;}
+        }
+        return answer;
+    }
+};
