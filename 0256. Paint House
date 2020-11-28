@@ -3,7 +3,8 @@ LeetCode No. 256 Paint House
 This is a dynamic programming problem. The n-th can be painted by one of the three colors and the minimal cost with each color depends on the minimal costs 
 of the previous house with different colors since no two adjacent houses can have the same color. This recursion relation is now clear.
 
-Remark: space complexity of the following solution can be optimized since we only need to remember the costs of the last two houses.
+Remark: space complexity of the following solution can be optimized since we only need to remember the costs of the last two houses. 
+        Overwriting the input can also reduce space complexity. However, overwriting might not be desirable or applicable in some cases. 
 
 class Solution {
 public:
