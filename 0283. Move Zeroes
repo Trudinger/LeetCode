@@ -1,0 +1,33 @@
+LeetCode No. 283 Move Zeroes
+
+This problem can be solved by two pointers. Use one pointer to track the current position and another pointer to track the last nonzero number.
+
+// without swap
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int LastNonzero = 0, cur = 0;
+        for(cur = 0; cur < nums.size(); ++cur)
+        {
+            if(nums[cur]!=0){nums[LastNonzero++] = nums[cur];}
+        }
+        for(int i = LastNonzero; i < nums.size(); ++i)
+        {
+            nums[i] = 0;
+        }
+    }
+};
+
+// with swap
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int cur = 0;
+        int lastNonzero = 0;
+        for(int cur = 0; cur < nums.size(); ++cur){
+            if(nums[cur] != 0){
+                swap(nums[lastNonzero++],nums[cur]);
+            }
+        }
+    }
+};
