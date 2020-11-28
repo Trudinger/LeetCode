@@ -1,0 +1,16 @@
+LeetCode No. 252 Meeting Rooms
+
+Sorting the intervals with respect to the left endpoint simplifies the problem a lot. Sorting is very useful when the original order of the array 
+does not matter to the final result. 
+
+class Solution {
+public:
+    bool canAttendMeetings(vector<vector<int>>& intervals) {
+        sort(intervals.begin(),intervals.end());
+        for(int i = 1; i < intervals.size(); ++i)
+        {
+            if(intervals[i-1][1] > intervals[i][0]){return false;}
+        }
+        return true;
+    }
+};
