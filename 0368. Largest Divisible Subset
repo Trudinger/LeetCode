@@ -1,0 +1,29 @@
+LeetCode No. 368 Largest Divisible Subset
+
+This problem requires us to find a subset and thereby the order of the array does not matter. Hence, we first sort the array and then consider the largest divisible subset with
+sorted nums[i] as the end. Clearly, we only need to check the nums[j] (j < i) such that nums[j] is a factor of nums[i].
+
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        vector<vector<int>> sol;
+        if(nums.size()==0){return {};}
+        sort(nums.begin(),nums.end());
+        for(int num : nums){
+            sol.push_back({num});
+        }
+        for(int i = 0; i < nums.size(); ++i){
+            for(int j = 0; j < i; ++j){
+                if((nums[i]%nums[j]==0) && sol[j].size() >= sol[i].size()){
+                    copy(sol[j].begin(), sol[j].end(), sol[i].begin());
+                    sol[i].push_back(nums[i]);
+                }
+            }
+        }
+        int max = 0; int maxpos = 0;
+        for(int ind = 0; ind < nums.size(); ++ind){
+            if(sol[ind].size() > max){max = sol[ind].size(); maxpos = ind;}
+        }
+        return sol[maxpos];
+    }
+};
