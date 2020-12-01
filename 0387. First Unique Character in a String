@@ -1,0 +1,18 @@
+LeetCode No. 387 First Unique Character in a String
+
+This problem involves the frequency of the occurrence of a character in a string. We simply use a hash table to record these data and search for the first character with
+frequency 1.
+
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        unordered_map<char,size_t> hash_table;
+        for(int i = 0; i < s.length(); ++i){
+            hash_table[s[i]]++; // record the frequency
+        }
+        for(int i = 0; i < s.length(); ++i){
+            if(hash_table[s[i]]==1){return i;}
+        }
+        return -1;
+    }
+};
