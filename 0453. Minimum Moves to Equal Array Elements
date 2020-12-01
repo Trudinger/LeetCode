@@ -1,6 +1,6 @@
 LeetCode No. 453 Minimum Moves to Equal Array Elements
 
-This problem is easy if we consider the relative relations among the numbers. incrementing n - 1 elements by 1 is equivalent to decreasing one bumber by 1.
+This problem is easy if we consider the relative relations among the numbers. Note that incrementing n - 1 elements by 1 is equivalent to decreasing one bumber by 1.
 
 class Solution {
 public:
