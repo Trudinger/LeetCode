@@ -1,0 +1,24 @@
+LeetCode No. 455 Assign Cookies
+
+This problem can easily be solved by a greedy algorithm. We always try to satisfy the least greedy child with the smallest possible cookie. 
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        if(s.size()==0){return 0;}
+        int cur = 0, count = 0;
+        for(int i = 0; i < g.size(); ++i){
+            if(cur >= s.size()){break;}
+            for(int j = cur; j < s.size(); ++j){
+                if(s[j]>=g[i]){
+                    count++;
+                    cur = j + 1;
+                    break;
+                }
+            }
+        }
+        return count;
+    }   
+};
