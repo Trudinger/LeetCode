@@ -1,0 +1,10 @@
+LeetCode No. 319 Bulb Switcher
+
+This problem is a classical brainteaser. The final result of a bulb depends on whether the number is a perfect square or not.
+
+class Solution {
+public:
+    int bulbSwitch(int n) {
+        return (int) sqrt(n);
+    }
+};
