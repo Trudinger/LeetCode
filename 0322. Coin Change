@@ -1,0 +1,38 @@
+LeetCode No. 322 Coin Change
+
+This problem is solved efficiently by dynamic programming. If we want to find the coin change method for an amount, the subproblem is to consider all the coin change methods
+for amount - coins[i].
+
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int C = coins.size();
+        int Change[amount+1];
+        if(amount==0){return 0;}
+        Change[0] = 0;
+        for(int i = 1; i <= amount; ++i)
+        {
+            Change[i] = -1; // the problem requires the function should return -1 if the amount of money cannot be made up by any combination of the coins
+        }
+        for(auto num : coins)
+        {
+            if(num <= amount){Change[num] = 1;}
+        }
+        for(int j = 1; j <= amount; ++j)
+        {
+            int temp = INT_MAX; 
+            for(int k = 0; k < C; ++k)
+            { 
+                if(j >= coins[k])
+                {
+                    if(Change[j-coins[k]] >= 0)
+                    {
+                        if(temp > Change[j-coins[k]]){temp = Change[j-coins[k]]+1;}
+                    }
+                }
+            }
+            if(temp != INT_MAX){Change[j] = temp;}
+        }
+        return Change[amount];
+    }
+};
