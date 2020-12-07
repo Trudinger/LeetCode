@@ -1,0 +1,54 @@
+LeetCode No.230 Kth Smallest Element in a BST
+
+The point is to understand the BST property. A natural approach is to use (recursive) inorder traversal and create a vector of nodes and then return the Kth element. 
+However, since we only need the Kth element, we can use the iterative approach and stop when the level is K.
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ 
+// recursion
+class Solution {
+    vector<int> series;
+    public:
+    void DFS(TreeNode* node){
+        if(node->left != NULL){DFS(node->left);}
+        series.push_back(node->val);
+        if(node->right != NULL){DFS(node->right);}
+    }
+    public:
+    int kthSmallest(TreeNode* root, int k) {
+        DFS(root);
+        return series[k-1];
+    }
+};
+
+// iteration
+class Solution {
+    public:
+    int kthSmallest(TreeNode* root, int k) {
+        int level = 1;
+        TreeNode* curr = root;
+        stack<TreeNode*> st;
+        while(curr != NULL || !st.empty()){
+            while(curr != NULL){
+                st.push(curr);
+                curr = curr->left;
+            }
+            curr = st.top();
+            if(level == k){return curr->val;}
+            else{level++;}
+            st.pop();
+            curr = curr->right;
+        }
+        return -1;
+    }
+};
