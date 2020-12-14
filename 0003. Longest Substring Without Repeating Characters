@@ -1,0 +1,42 @@
+LeetCode No. 3 Longest Substring Without Repeating Characters
+
+This problem is a nice application of two pointers. We use two pointers to track the start and finish points of the substring and move them for whether there are repeating
+characters or not. We use a hash table to take record of the characters.
+
+// direct and simple solution
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int sol = 0;
+        unordered_set<char> hash;
+        int i = 0, j = 0;
+        while(i < s.length() && j < s.length()){
+            if(hash.find(s[j]) == hash.end()){
+                hash.insert({s[j++]});
+                sol = max(sol,j - i);
+            }
+            else{
+                hash.erase(s[i++]);
+            }
+        }
+        return sol;
+    }
+};
+
+// improved solution by tracking the position of each character
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int sol = 0;
+        unordered_map<char,int> hash;
+        int i = 0, j = 0;
+        for(i = 0, j = 0; j < s.length(); j++){
+            if(hash.find(s[j]) != hash.end()){
+                i = max(i,hash[s[j]]);
+            }
+            sol = max(sol,j - i + 1);
+            hash[s[j]] = j + 1;
+        }
+        return sol;
+    }
+};
