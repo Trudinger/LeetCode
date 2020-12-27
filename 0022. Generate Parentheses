@@ -1,0 +1,36 @@
+LeetCode No. 22 Generate Parentheses
+
+This is a standard problem of backtracking: 
+1. The goal is to construct a string of length 2*n. 
+2. The choice for each step is to add '(' or ')'. 
+3. The restriction for adding '(' is that the total number of '(' is at most n. The restriction for adding ')' is that the total number of ')' is at most n
+and the stack cannot be empty.
+
+class Solution {
+    vector<string> sol;
+    public:
+    void genP(int left, int right, int st, int n, string& s){
+        if(s.length() == 2*n){
+            sol.push_back(s); // goal
+            return;
+        }
+        s = s + '('; // choice for '('
+        if(left == n){s.erase(s.end()-1);} // restriction for '('
+        else{
+                genP(left + 1, right, st + 1, n, s);
+                s.erase(s.end()-1);
+        }
+        s = s + ')'; // choice for '('
+        if(st == 0 || right == n){s.erase(s.end()-1);} // restriction for ')'
+        else{
+                genP(left, right + 1, st - 1, n, s);
+                s.erase(s.end()-1);
+        }
+    }
+    public:
+    vector<string> generateParenthesis(int n) {
+        string str;
+        genP(0,0,0,n,str);
+        return sol;
+    }
+};
