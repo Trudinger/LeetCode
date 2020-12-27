@@ -1,0 +1,36 @@
+LeetCode No. 10 Regular Expression Matching
+
+This is a typical problem of string matching. One natural method is to use dynamic programming to record the matching property d[i][j], where i and j are 
+the numbers of characters in two strings.
+
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int R = s.size();
+        int C = p.size();
+        vector<vector<bool>> dp(R + 1, vector<bool>(C + 1, false));
+        dp[0][0] = true; 
+        for (int i = 1; i < C + 1; ++i) {
+            if (p[i-1] == '*') {
+                dp[0][i] = dp[0][i-2];
+            }
+        }
+        for(int row = 1; row < R + 1; ++row) {
+            for(int col = 1; col < C + 1; ++col) {
+                if (p[col-1] == '.') {
+                    dp[row][col] = dp[row-1][col-1]; // '.' matches any single char
+                }
+                else if (p[col-1] != '*') {
+                    dp[row][col] = s[row-1] == p[col-1] && dp[row-1][col-1]; // both are chars
+                }
+                else if (p[col-2] != '.' && p[col-2] != s[row-1]) {
+                    dp[row][col] = dp[row][col-2]; // '*' must match zero of the preceding char
+                }
+                else {
+                    dp[row][col] = dp[row][col-2] || dp[row-1][col] || dp[row][col-1]; // Three cases: '*' matches zero, one, or more than one prededing chars, respectively
+                }
+            }
+        }
+        return dp[R][C];
+    }
+};
