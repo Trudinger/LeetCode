@@ -1,0 +1,35 @@
+LeetCode No. 17 Letter Combinations of a Phone Number
+
+This is a problem of DFS or backtracking. The goal is to construct a string of given length.
+
+class Solution {
+    vector<string> sol;
+    unordered_map<char,vector<char>> hash;
+    public: void construct(string& s, int level, string& ans){
+        if(ans.length() == s.length()){
+            sol.push_back(ans); // if the goal is achieved, we add the string to our solution
+        }
+        else{
+            for(int j = 0; j < hash[s[level]].size(); ++j){
+                ans = ans + hash[s[level]][j]; // extend the string
+                construct(s, level+1, ans); // recursion
+                ans.erase(ans.end()-1); //backtracking step after the recursion
+            }
+        }
+    }
+    public:
+    vector<string> letterCombinations(string digits) {
+        hash.insert({'2',{'a','b','c'}});
+        hash.insert({'3',{'d','e','f'}});
+        hash.insert({'4',{'g','h','i'}});
+        hash.insert({'5',{'j','k','l'}});
+        hash.insert({'6',{'m','n','o'}});
+        hash.insert({'7',{'p','q','r','s'}});
+        hash.insert({'8',{'t','u','v'}});
+        hash.insert({'9',{'w','x','y','z'}});
+        if(digits.length() == 0){return sol;}
+        string answer;
+        construct(digits,0,answer);
+        return sol;
+    }
+};
